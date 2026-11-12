@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Zenin Store | Anime & World Cup Collection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="top-bar">
+    <div class="logo" onclick="scrollToSection('homeSection')">ZENIN <span>✦</span></div>
+    <div class="nav-links" id="navLinks">
+      <a onclick="scrollToSection('homeSection')" class="active-link" data-target="homeSection">Home</a>
+      <a onclick="scrollToSection('allProductsSection')" data-target="allProductsSection">All Products</a>
+      <a onclick="scrollToSection('categoriesSection')" data-target="categoriesSection">Categories</a>
+      <a onclick="scrollToSection('contactSection')" data-target="contactSection">Contact</a>
+    </div>
+    <div class="top-right">
+      <div class="search-box">
+        🔍 <input type="text" id="searchInput" placeholder="Search products...">
+      </div>
+      <button class="icon-btn" id="darkModeToggle" title="Toggle dark mode">🌙</button>
+      <div id="authArea"></div>
+      <div class="cart-icon-btn" onclick="scrollToSection('cartSummary')">🛒 Cart<span class="mini-badge" id="cartCountTop">0</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HOME SECTION ============ -->
+<div id="homeSection">
+  <div class="hero" id="heroBanner">
+    <div id="heroSlidesContainer"></div>
+    <div class="hero-overlay">
+      <div class="hero-text" id="heroText">
+        <h2>⚡ ZENIN <span>COLLECTION</span></h2>
+        <p>Loading featured drop...</p>
+      </div>
+      <div class="badge" id="heroBadge">LIMITED DROP</div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </div>
+
+  <h2 class="section-title">🔥 FEATURED PICKS <span class="section-sub">— hand picked for you</span></h2>
+  <div class="products-grid" id="featuredGrid"></div>
+</div>
+
+<!-- ============ ALL PRODUCTS SECTION ============ -->
+<h2 class="section-title" id="allProductsSection">⚔️ ALL PRODUCTS</h2>
+<div class="products-grid" id="productsGrid"></div>
+
+<!-- ============ CATEGORIES SECTION ============ -->
+<h2 class="section-title" id="categoriesSection">🗂️ CATEGORIES</h2>
+<div class="category-tabs" id="categoryTabs">
+  <button class="cat-tab active-tab" data-cat="all">All</button>
+  <button class="cat-tab" data-cat="new-arrival">🆕 New Arrival</button>
+  <button class="cat-tab" data-cat="most-sold">🔥 Most Sold</button>
+  <button class="cat-tab" data-cat="world-cup">🌍 World Cup Special</button>
+</div>
+<div class="products-grid" id="categoryGrid"></div>
+
+<!-- Cart / checkout preview -->
+<div class="cart-summary" id="cartSummary">
+  <div class="cart-title">
+    <span>🛒 YOUR CART</span>
+    <span class="cart-badge" id="cartCount">0</span>
+  </div>
+  <div id="cartItemsList" class="cart-items-list">
+    <div style="color: #aaa; text-align:center;">Cart is empty</div>
+  </div>
+  <div class="cart-total" id="cartTotalDisplay">Total: $0.00</div>
+  <button class="checkout-btn" id="checkoutBtn">💳 PROCEED TO PAYMENT</button>
+  <p style="font-size: 0.7rem; margin-top: 6px; text-align:center;">(payout summary below)</p>
+</div>
+
+<!-- ============ CONTACT SECTION ============ -->
+<div class="contact-section" id="contactSection">
+  <div class="contact-info">
+    <h2>📩 Get In Touch</h2>
+    <p>Questions about an order, sizing, or a custom request? Reach out — we usually reply within 24 hours.</p>
+    <div class="contact-detail-row"><span class="dot">●</span> <span id="contactEmail">zeninsupport@gmail.com</span></div>
+    <div class="contact-detail-row"><span class="dot">●</span> <span id="contactPhone">+880 123-4567890</span></div>
+    <div class="contact-detail-row"><span class="dot">●</span> <span id="contactAddress">Rajshahi, Bangladesh</span></div>
+    <div class="contact-detail-row"><span class="dot">●</span> <span id="contactSocial">@zeninstore on Instagram</span></div>
+  </div>
+  <form class="contact-form" id="contactForm">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<!-- MODAL: side-by-side image + size/payout interface -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-image-side" id="modalImageSide"></div>
+    <div class="modal-details-side">
+      <div class="modal-header">
+        <h3 id="modalProductTitle">Product Name</h3>
+        <span class="close-modal" id="closeModalBtn">&times;</span>
+      </div>
+      <div id="modalProductPrice" style="margin-bottom: 0.5rem; font-weight:500;"></div>
+      <div class="size-selector">
+        <p>📏 Select Size:</p>
+        <div class="size-buttons" id="sizeButtonsContainer"></div>
+      </div>
+      <div class="payout-section" id="payoutSection">
+        <p>💰 Payout Summary</p>
+        <div class="payout-item">
+          <span>Unit price:</span>
+          <span id="payoutUnitPrice">$0.00</span>
+        </div>
+        <div class="payout-item">
+          <span>Selected size:</span>
+          <span id="payoutSizeDisplay">—</span>
+        </div>
+        <div class="payout-item total-row">
+          <span>Total for this item:</span>
+          <span id="payoutTotal">$0.00</span>
+        </div>
+      </div>
+      <div class="cart-action">
+        <button id="addToCartBtn">➕ ADD TO CART</button>
+        <button id="cancelModalBtn" class="secondary">Cancel</button>
+      </div>
+      <p style="font-size:0.7rem; margin-top:12px;">✔️ After adding, view cart above & complete payout.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="auth-modal">
+  <div class="auth-modal-content">
+    <div class="auth-header">
+      <h3 id="authModalTitle">Welcome Back</h3>
+      <span class="close-modal" id="closeAuthModalBtn">&times;</span>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active-auth-tab" data-auth="login">Log In</div>
+      <div class="auth-tab" data-auth="signup">Sign Up</div>
+    </div>
+    <form class="auth-form active-form" id="loginForm">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Log In</button>
+    </form>
+    <form class="auth-form" id="signupForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Create Account</button>
+    </form>
+    <p class="auth-note">🔒 Demo only — no real account is created or stored anywhere.</p>
+  </div>
+</div>
+
+<footer>
+  © 2026 ZENIN STORE — Anime Streetwear & World Cup Specials
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
